@@ -1,4 +1,4 @@
-package webPages.Posts;
+package webPages.Login;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +15,12 @@ public class LoginPage {
 	private WebElement wePassword;
 	@FindBy(xpath="//button[@type ='submit']")
 	private WebElement weButton;
-	
+	@FindBy(id="email-error")
+	private WebElement weErrorEmail;
+	@FindBy(id="password-error")
+	private WebElement weErrorPassword;
+	@FindBy(xpath="//div[@class='invalid-feedback']/strong")
+	private WebElement weCredentialError;
 	public LoginPage (WebDriver driver) {
 		this.driver = driver;
 		driver.get(PAGE_URL);
@@ -31,8 +36,35 @@ public class LoginPage {
 		
 	}
 	
+	public void inputStringInEmail(String email) {
+		weEmail.clear();
+		weEmail.sendKeys(email);
+	}
+	
+	public void inputStringInPassword(String password) {
+		wePassword.clear();
+		wePassword.sendKeys(password);		
+	}
+	
+	public void clickOnButtonSingIn() {
+		weButton.click();
+	}
+	
 	public void openPage() {
 		driver.get(PAGE_URL);
+	}
+	
+	public String getEmailErrorMessage() {
+		return weErrorEmail.getText();
+	}
+	
+	public String getPasswordErrorMessage() {
+		return weErrorPassword.getText();
+	}
+	
+	public String getCredentialErrorMessage() {
+		return weCredentialError.getText();
+		
 	}
 	
 }
